@@ -198,20 +198,20 @@ footer {
 }
 
 /*** VAN PAGES ***/
-.van-list-container {
+.podcast-list-container {
   padding-inline: 23px;
 }
 
-.van-list-filter-buttons {
+.podcast-list-filter-buttons {
   display: flex;
   flex-wrap: wrap;
 }
 
-.van-list-filter-buttons > a {
+.podcast-list-filter-buttons > a {
   margin-right: 15px;
 }
 
-.van-list {
+.podcast-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
@@ -219,22 +219,22 @@ footer {
   margin-top: 57px;
 }
 
-.van-tile a {
+.podcast-tile a {
   color: #161616;
   text-decoration: none;
 }
 
-.van-tile img {
+.podcast-tile img {
   max-width: 100%;
   border-radius: 5px;
 }
 
-.van-list-container button {
+.podcast-list-container button {
   margin-right: 20px;
   cursor: pointer;
 }
 
-.van-type {
+.podcast-type {
   height: 34px;
   padding: 6px 26px;
   font-style: normal;
@@ -246,34 +246,64 @@ footer {
   transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.van-type:hover {
+.podcast-type:hover {
   color: #ffead0;
 }
 
-.van-type:focus {
+.podcast-type:focus {
   outline: none;
 }
 
-.van-type.selected {
+.podcast-type.selected {
   color: #ffead0;
 }
 
-.van-type.simple:hover,
-.van-type.simple.selected {
+.podcast-type.history:hover,
+.podcast-type.history.selected {
   background-color: #e17654;
 }
 
-.van-type.rugged:hover,
-.van-type.rugged.selected {
+.podcast-type.personalgrowth:hover,
+.podcast-type.personalgrowth.selected {
   background-color: #115e59;
 }
 
-.van-type.luxury:hover,
-.van-type.luxury.selected {
+.podcast-type.investigativejournalism:hover,
+.podcast-type.investigativejournalism.selected {
   background-color: #161616;
 }
 
-.van-type.clear-filters {
+.podcast-type.comedy:hover,
+.podcast-type.comedy.selected {
+  background-color: #e17654;
+}
+
+.podcast-type.entertainment:hover,
+.podcast-type.entertainment.selected {
+  background-color: #e17654;
+}
+
+.podcast-type.kidsandfamily:hover,
+.podcast-type.kidsandfamily.selected {
+  background-color: #e17654;
+}
+
+.podcast-type.business:hover,
+.podcast-type.business.selected {
+  background-color: #e17654;
+}
+
+.podcast-type.fiction:hover,
+.podcast-type.fiction.selected {
+  background-color: #e17654;
+}
+
+.podcast-type.news:hover,
+.podcast-type.news.selected {
+  background-color: #e17654;
+}
+
+.podcast-type.clear-filters {
   margin-left: -20px;
   height: 34px;
   padding: 6px 26px;
