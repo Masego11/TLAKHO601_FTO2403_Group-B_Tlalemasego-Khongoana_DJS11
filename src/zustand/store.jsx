@@ -14,7 +14,7 @@ const usePodcastsStore = create((set) => ({
             if(!podcasts) {
                 const response = await fetch ('https://podcast-api.netlify.app');
                 podcasts = await response.json();
-                //sort podcasts (A-Z)
+                //sort podcasts in alphabetical order
                 podcasts.sort((a, b) => a.title.localeCompare(b.title));
                 localStorage.setItem("podcasts", JSON.stringify(podcasts));
                 set({ podcasts, error:null}) 
