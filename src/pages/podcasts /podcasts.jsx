@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useProductsStore from "../../zustand/store";
 
 function Podcasts() {
-    const { podcasts, fetchPodcasts, error } = useProductsStore();
+    const { podcasts, fetchPodcasts} = useProductsStore();
 
     useEffect(() => {
         if(!podcasts) {
@@ -16,16 +16,16 @@ function Podcasts() {
 return (
     <div className="podcast-list-container">
         <h1>Podcasts</h1>
-        {error && <p>Error: {error}</p>}
         <div className="podcast-list">
             {podcasts && podcasts.map((podcast) => (
             <div key={podcast.id} className="podcast-tile">
-                <img src={podcast.imageUrl}  alt={podcast.title} />
-                <div className="podcast-content-card">
-                    <h2 className="podcast-card-title">{podcast.title}</h2>
-                    <p className="podcast-card-description">{podcast.description}</p>
-                <Link to={`/podcasts/${podcast.id}`} className="podcast-card-link">Find out more</Link>
-            </div>
+                <Link to={`/podcasts/${podcast.id}`}>
+                <img src={podcast.image}  alt={podcast.title} />
+                </Link>
+                    <h3>{podcast.title}</h3>
+                    <p>{podcast.description}</p>
+                <Link to={`/podcasts/${podcast.id}`} className="link-button">Find out more</Link>
+            
             </div>
             ))} 
      </div>
