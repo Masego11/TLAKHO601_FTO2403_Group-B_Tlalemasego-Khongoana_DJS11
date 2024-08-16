@@ -320,53 +320,53 @@ i[class*="van-type-"] {
   padding: 7px 14px;
 }
 
-.van-detail-container {
+.podcast-detail-container {
   padding-inline: 27px;
 }
 
-.van-detail-container .back-button {
+.podcast-detail-container .back-button {
   color: black;
   text-decoration: none;
 }
 
-.van-detail-container .back-button:visited {
+.podcast-detail-container .back-button:visited {
 }
 
-.van-detail-container .back-button span {
+.podcast-detail-container .back-button span {
   text-decoration: underline;
 }
 
-.van-detail {
+.podcast-detail {
   display: flex;
   flex-direction: column;
   color: #161616;
 }
 
-.van-detail img {
+.podcast-detail img {
   border-radius: 5px;
   margin-block: 47px;
 }
 
-.van-detail h2 {
+.podcast-detail h2 {
   font-size: 2rem;
   margin-bottom: 10px;
 }
 
-.van-detail > i {
+.podcast-detail > i {
   align-self: flex-start;
 }
 
-.van-detail .van-price {
+.podcast-detail .podcast-season {
   font-size: 1.25rem;
   margin-bottom: 10px;
 }
 
-.van-detail .van-price span {
+.podcast-detail .van-price span {
   font-weight: 700;
   font-size: 1.5rem;
 }
 
-.van-detail .link-button {
+.podcast-detail .link-button {
   background-color: #ff8c38;
   color: white;
   font-size: 1.125rem;
