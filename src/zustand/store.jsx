@@ -1,7 +1,7 @@
 //Creating a store for podcasts 
 import { create } from "zustand";
 
-const useProductsStore = create((set) => ({
+const usePodcastsStore = create((set) => ({
     // initial state of store
     podcasts: JSON.parse(localStorage.getItem("podcasts")),
     error: null,
@@ -47,17 +47,24 @@ const useProductsStore = create((set) => ({
             console.error("error fetching genres", error);
         }
     },
+    
+    // back buttons
+   
     fetchShow: async (id) => {
         try {
-          const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);
-          const showData = await response.json();
-          set({ selectedShow: showData, error: null });
+            const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data;
         } catch (error) {
-          set({ error: 'Failed to fetch show' });
-          console.error("Error fetching show:", error);
+            console.error("Error fetching show: ", error);
         }
-      }
+    }
+
+  
     }));
 
 
-export default useProductsStore
+export default usePodcastsStore
