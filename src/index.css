@@ -372,6 +372,37 @@ i[class*="van-type-"] {
   font-size: 1.125rem;
 }
 
+.season-details {
+  margin-top: 20px;
+}
+
+.season-details h3 {
+  margin-bottom: 10px;
+}
+
+.season-details ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.season-details li {
+  margin-bottom: 10px;
+}
+
+.genre {
+  display: inline-block;
+  margin-right: 5px;
+  padding: 5px 10px;
+  background-color: #ffcc8d;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.persistent-audio-player {
+  margin-top: 20px;
+  width: 100%;
+}
+
 .host-nav {
   display: flex;
   margin-bottom: 30px;
