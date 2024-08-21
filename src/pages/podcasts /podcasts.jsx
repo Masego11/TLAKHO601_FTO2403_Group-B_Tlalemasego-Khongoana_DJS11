@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import useProductsStore from "../../zustand/store";
+import usePodcastsStore from "../zustand/store";
 
 function Podcasts() {
-    const { podcasts, fetchPodcasts} = useProductsStore();
+    const { podcasts, fetchPodcasts} = usePodcastsStore();
 
     useEffect(() => {
         if(!podcasts) {
@@ -34,4 +34,3 @@ return (
 }
 
 export default Podcasts
-
