@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import usePodcastsStore from "../zustand/store";
+import usePodcastsStore from "../../zustand/store";
 
 function Podcasts() {
     const { podcasts, fetchPodcasts} = usePodcastsStore();
 
     useEffect(() => {
-        if(!podcasts) {
+        if(podcasts.length === 0) {
             console.log("Fetching podcasts");
             fetchPodcasts();
         }
