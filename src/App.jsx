@@ -4,7 +4,7 @@ import Layout from "./components /layout";
 import About from "./pages/about";
 import Podcasts from "./pages/podcasts /podcasts";
 import PreviewLayout from "./components /previewlayout";
-import Dashboard from "./pages/preview/dashboard";
+import Genres from "./pages/podcasts /podcastgenres";
 import PodcastDetails from "./pages/podcasts /podcastdetails";
 import "./index.css"
 
@@ -20,7 +20,7 @@ function App() {
         <Route path="podcasts/:id" element={<PodcastDetails />} />
 
         <Route path="preview" element={<PreviewLayout />}>
-            <Route index element={<Dashboard />} />
+            <Route index element={<Genres />} />
            
     
         </Route>
