@@ -1,7 +1,7 @@
 import { useState } from "react";
-import usePodcastsStore from "../zustand/store";
+import usePodcastsStore from "../../zustand/store";
 
-//Fetch genres by ID
+//Fetch genres by id 
 function Genres() {
   const { fetchGenresById } = usePodcastsStore();
   const [selectedGenre, setSelectedGenre] = useState(null);
