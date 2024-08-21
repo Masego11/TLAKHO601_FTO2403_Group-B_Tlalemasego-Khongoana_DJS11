@@ -28,27 +28,38 @@ const usePodcastsStore = create((set, get) => ({
         }
     },
 
-  //Fetch genre details by ID 
-  fetchGenresById: async(id) => {
-    try{
-        let genres = JSON.parse(localStorage.getItem('genres'));
-        const genre = genres.find(g => g.id === id);
+ 
+ // Fetch genre details by ID
+ fetchGenresById: async (ids) => {
+    try {
+      // Fetch genres concurrently
+      const responses = await Promise.all(
+        ids.map(id => fetch(`https://podcast-api.netlify.app/genre/${id}`))
+      );
 
-        if(!genre) {
-            const response = await fetch (`https://podcast-api.netlify.app/genre/${id}`);
-            const genreData = await response.json();
-            genres.push(genreData);
-
-            genres.sort((a, b) => a.title.localeCompare(b.title));
-            localStorage.setItem("genres", JSON.stringify(genres));
-            set({ genres }) 
+      // Check if all responses are ok
+      responses.forEach(response => {
+        if (!response.ok) {
+          throw new Error(`Error fetching genre: ${response.statusText}`);
         }
+      });
+
+      // Parse responses as JSON
+      const genresData = await Promise.all(responses.map(response => response.json()));
+
+      // Create a genres object with IDs as keys
+      const genresObject = genresData.reduce((acc, genre) => {
+        acc[genre.id] = genre;
+        return acc;
+      }, {});
+
+      localStorage.setItem("genres", JSON.stringify(genresObject));
+      set({ genres: genresObject, error: null });
     } catch (error) {
-        //If there's an error set error
-        set({ error: "Failed to fetch genres" });
-        console.error("error fetching genres", error);
+      set({ error: "Failed to fetch genres" });
+      console.error("Error fetching genres", error);
     }
-},
+  },
     
     // back buttons
    
