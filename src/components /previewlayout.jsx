@@ -20,18 +20,18 @@ function PreviewLayout() {
             >
                 Dashboard
             </NavLink>
-            <NavLink to="tbc"
+            <NavLink to="favorites"
                 end
                 style={({ isActive}) => isActive ? activeStyles : null}
             >
-                TBC
+                Favorites 
             </NavLink>
 
-            <NavLink to="podcasts"
+            <NavLink to="genres"
                 end
                 style={({ isActive}) => isActive ? activeStyles : null}
             >
-                Podcasts
+                Genres
             </NavLink>
 
             <NavLink to="tbc"
