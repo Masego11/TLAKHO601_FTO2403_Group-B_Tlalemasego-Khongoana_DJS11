@@ -3,8 +3,9 @@ import Home from "./pages/home";
 import Layout from "./components /layout";
 import About from "./pages/about";
 import Podcasts from "./pages/podcasts /podcasts";
+import GenreDetails from "./pages/preview/genredetails";
 import PreviewLayout from "./components /previewlayout";
-import Genres from "./pages/podcasts /podcastgenres";
+import Genres from "./pages/preview/podcastgenres";
 import PodcastDetails from "./pages/podcasts /podcastdetails";
 import "./index.css"
 
@@ -21,11 +22,9 @@ function App() {
 
         <Route path="preview" element={<PreviewLayout />}>
             <Route index element={<Genres />} />
-           
-    
+            <Route path="genres/:id" element={<GenreDetails />} /> 
         </Route>
         </Route>
-      
       </Routes>
     
     </BrowserRouter>
