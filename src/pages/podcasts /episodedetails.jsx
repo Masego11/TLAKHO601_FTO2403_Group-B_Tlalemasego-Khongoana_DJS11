@@ -41,10 +41,8 @@ const Episodes = () => {
     if (error) {
         return <h2>Episodes not found.</h2>;
     }
-    
 
     return (
-        
         <div className="episodes-container">
             <Link to={`/podcasts/${id}`} className="back-button">Back to Show</Link>
             <Link to="/favorites" className="favorites-link">Go to Favorites</Link>
@@ -53,7 +51,7 @@ const Episodes = () => {
             {episodes.length > 0 ? (
                 <ul className="episode-list">
                     {episodes.map((episode) => (
-                        <li key={episode.episode} className="episode-item">
+                        <li key={episode.id} className="episode-item">
                             <h3>{episode.title}</h3>
                             <p>{episode.description}</p>
                             <audio controls>
