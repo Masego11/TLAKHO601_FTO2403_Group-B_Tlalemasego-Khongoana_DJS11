@@ -478,40 +478,62 @@ i[class*="van-type-"] {
   color: #333;
 }
 
-/* Episodes list styling */
-.episodes-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.episodes-container {
+  max-width: 800px; /* Set a max width for better readability */
+  margin: 0 auto; /* Center the container */
+  padding: 20px; /* Add padding */
+  background-color: #f9f9f9; /* Light background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
+/* Season image styling */
+.season-image {
+  width: 100%; /* Make the image responsive */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px; /* Rounded corners */
+  margin-bottom: 20px; /* Space below the image */
+}
+
+/* Episode list styling */
+.episode-list {
+  list-style: none; /* Remove default list styling */
+  padding: 0; /* Remove default padding */
+}
+
+/* Episode item styling */
 .episode-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-top: 1px solid #ddd;
+  background-color: #fff; /* White background for episode items */
+  border: 1px solid #e0e0e0; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 15px; /* Inner padding */
+  margin-bottom: 15px; /* Space between episodes */
+  transition: box-shadow 0.2s; /* Smooth transition for hover effect */
 }
 
-.episode-item:first-child {
-  border-top: none;
+/* Episode item hover effect */
+.episode-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow on hover */
 }
 
-.episode-item a {
-  text-decoration: none;
-  color: #007BFF;
-  font-weight: bold;
-  flex: 1;
+/* Episode title styling */
+.episode-item h3 {
+  margin: 0 0 10px; /* Margin below the title */
+  font-size: 1.5rem; /* Title size */
+  color: #333; /* Dark text color */
 }
 
-.episode-item a:hover {
-  text-decoration: underline;
+/* Episode description styling */
+.episode-item p {
+  margin: 0 0 10px; /* Margin below the description */
+  font-size: 1rem; /* Description size */
+  color: #666; /* Lighter text color */
 }
 
-/* Audio player styling */
+/* Audio control styling */
 audio {
-  flex-shrink: 0;
-  margin-left: 10px;
+  width: 100%; /* Full width for audio controls */
+  margin-top: 10px; /* Space above audio controls */
 }
 
 /* Link button styling */
