@@ -6,6 +6,7 @@ const usePodcastsStore = create((set, get) => ({
     podcasts: JSON.parse(localStorage.getItem("podcasts")) || [],
     genres: JSON.parse(localStorage.getItem("genres")) || [],
     favorites: JSON.parse(localStorage.getItem("favorites")) || [],
+    shows: [],
     error: null,
   
     //Fetches all podcasts
@@ -47,7 +48,7 @@ const usePodcastsStore = create((set, get) => ({
       // Parse responses as JSON
       const genresData = await Promise.all(responses.map(response => response.json()));
 
-      // Create a genres object with IDs as keys
+      // Creates genres object with IDs as keys
       const genresObject = genresData.reduce((acc, genre) => {
         acc[genre.id] = genre;
         return acc;
@@ -61,19 +62,31 @@ const usePodcastsStore = create((set, get) => ({
     }
   },
     
-    // back buttons
-   
        // Fetches show details by ID
        fetchShow: async (id) => {
         try {
-            const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+            let show = JSON.parse(localStorage.getItem(`show-${id}`));
+    
+            if (!show) {
+                const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);
+                if (!response.ok) throw new Error('Failed to fetch show');
+                show = await response.json();
+    
+                localStorage.setItem(`show-${id}`, JSON.stringify(show));
             }
-            const data = await response.json();
-            return data;
+    
+            set((state) => {
+                const updatedShows = state.shows.map((s) =>
+                    s.id === id ? show : s
+                );
+                return { shows: updatedShows.length > 0 ? updatedShows : [...state.shows, show] };
+            });
+    
+            return show;
         } catch (error) {
-            console.error("Error fetching show: ", error);
+            console.error("Error fetching show:", error);
+            set({ error: `Failed to fetch show with ID ${id}` });
+            throw error;
         }
     },
 
