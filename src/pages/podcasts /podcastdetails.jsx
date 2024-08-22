@@ -7,6 +7,7 @@ const PodcastDetails = () => {
     const { fetchShow, addFavorite, removeFavorite, isFavorite } = usePodcastsStore();
     const [podcast, setPodcast] = useState(null);
     const [favoriteStatus, setFavoriteStatus] = useState(null);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,7 +20,9 @@ const PodcastDetails = () => {
                 }
             } catch (error) {
                 console.log("Error fetching podcast details:", error);
-            }
+            } finally {
+              setLoading(false); // Sets loading to false after fetching data
+          }
         };
         fetchData();
     }, [id, fetchShow, isFavorite]);
@@ -38,14 +41,19 @@ const PodcastDetails = () => {
       // Navigate to the correct season's episodes
       navigate(`/podcasts/${id}/seasons/${selectedSeasonId}/episodes`);
   };
+  // Show loading message while fetching
+if (loading) {
+    return <h2>Loading podcast details...</h2>; // Show loading message
+}
 
-    if (!podcast) {
-        return <h2>Loading...</h2>;
-    }
+if (!podcast) {
+    return <h2>Podcast not found.</h2>;
+}
+
 
     return (
         <div className='podcast-detail-container'>
-            <Link to="/" className="back-button">&larr; Back to podcasts</Link>
+            <Link to="/podcasts/" className="back-button">&larr; Back to podcasts</Link>
             <div className="podcast-detail">
                 <h2>{podcast.title}</h2>
                 <img src={podcast.image} alt={podcast.title} />
@@ -61,16 +69,15 @@ const PodcastDetails = () => {
                     <option value="" disabled>Select a season</option>
                     {podcast.seasons.map((season) => (
                         <option key={season.season} value={season.season}>
-                            {season.title}
+                          {/**Displaying episode count for each season */}
+                            {season.title} ({season.episodes.length} Episodes)
                         </option>
-                        
-
-                
                     ))}
                 </select>
             </div>
         </div>
     );
 };
+     
 
 export default PodcastDetails;
