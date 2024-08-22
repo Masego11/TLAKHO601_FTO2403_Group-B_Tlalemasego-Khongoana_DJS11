@@ -7,6 +7,7 @@ const Episodes = () => {
     const { fetchShow } = usePodcastsStore();
     const [episodes, setEpisodes] = useState([]);
     const [seasonTitle, setSeasonTitle] = useState("");
+    const [seasonImage, setSeasonImage] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -19,6 +20,7 @@ const Episodes = () => {
                 if (season) {
                     setEpisodes(season.episodes);
                     setSeasonTitle(season.title);
+                    setSeasonImage(season.image);
                 } else {
                     setError("Season not found");
                 }
@@ -38,13 +40,15 @@ const Episodes = () => {
     return (
         <div className="episodes-container">
             <h1>Episodes for {seasonTitle}</h1>
+            {seasonImage && <img src={seasonImage} alt={seasonTitle} className="season-image" />} 
             {episodes.length > 0 ? (
                 <ul className="episode-list">
                     {episodes.map((episode) => (
                         <li key={episode.episode} className="episode-item">
                             <h3>{episode.title}</h3>
+                            <p>{episode.description}</p>
                             <audio controls>
-                                <source src="placeholder-audio.mp3" type="audio/mpeg" />
+                                <source src={episode.file} type="audio/mpeg" />
                                 Your browser does not support the audio element.
                             </audio>
                         </li>
