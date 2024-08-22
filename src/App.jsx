@@ -22,11 +22,11 @@ function App() {
           <Route path="podcasts/:id" element={<PodcastDetails />} />
           {/* Updated route to handle episode navigation properly */}
           <Route path="podcasts/:id/seasons/:seasonId/episodes" element={<Episodes />} />
-          <Route path="favorites" element={<FavoriteEpisodes />} />
           <Route path="about" element={<About />} />
           <Route path="preview" element={<PreviewLayout />}>
             <Route index element={<Genres />} />
-            <Route path="genres/:id" element={<GenreDetails />} /> 
+            <Route path="genres/:id" element={<GenreDetails />} />
+            <Route path="favorites" element={<FavoriteEpisodes />} />
           </Route>
         </Route>
       </Routes>
