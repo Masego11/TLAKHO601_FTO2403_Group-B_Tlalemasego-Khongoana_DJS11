@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import usePodcastsStore from "../../zustand/store";
 
 const Episodes = () => {
     const { id, seasonId } = useParams();
-    const { fetchShow } = usePodcastsStore();
+    const { fetchShow, addFavorite, removeFavorite, isFavorite } = usePodcastsStore();
     const [episodes, setEpisodes] = useState([]);
     const [seasonTitle, setSeasonTitle] = useState("");
     const [seasonImage, setSeasonImage] = useState("");
@@ -34,11 +34,20 @@ const Episodes = () => {
         fetchEpisodes();
     }, [id, seasonId, fetchShow]);
 
-    if (loading) return <h2>Loading...</h2>;
-    if (error) return <h2>{error}</h2>;
+    if (loading) {
+        return <h2>Loading Episode details...</h2>; // Show loading message
+    }
+    
+    if (error) {
+        return <h2>Episodes not found.</h2>;
+    }
+    
 
     return (
+        
         <div className="episodes-container">
+            <Link to={`/podcasts/${id}`} className="back-button">Back to Show</Link>
+            <Link to="/favorites" className="favorites-link">Go to Favorites</Link>
             <h1>Episodes for {seasonTitle}</h1>
             {seasonImage && <img src={seasonImage} alt={seasonTitle} className="season-image" />} 
             {episodes.length > 0 ? (
@@ -51,6 +60,21 @@ const Episodes = () => {
                                 <source src={episode.file} type="audio/mpeg" />
                                 Your browser does not support the audio element.
                             </audio>
+                            <button onClick={() => {
+                                if (isFavorite(episode.id)) {
+                                    removeFavorite(episode.id);
+                                } else {
+                                    addFavorite({
+                                        id: episode.id,
+                                        title: episode.title,
+                                        showId: id,
+                                        seasonId: seasonId,
+                                        seasonTitle: seasonTitle,
+                                    });
+                                }
+                            }}>
+                                {isFavorite(episode.id) ? 'Remove from Favorites' : 'Add to Favorites'}
+                            </button>
                         </li>
                     ))}
                 </ul>
