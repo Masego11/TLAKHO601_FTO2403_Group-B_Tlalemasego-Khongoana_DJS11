@@ -8,6 +8,7 @@ import PreviewLayout from "./components /previewlayout";
 import Genres from "./pages/preview/podcastgenres";
 import PodcastDetails from "./pages/podcasts /podcastdetails";
 import Episodes from "./pages/podcasts /episodedetails";
+import FavoriteEpisodes from "./pages/podcasts /favorites";
 import "./index.css"
 
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="podcasts/:id" element={<PodcastDetails />} />
           {/* Updated route to handle episode navigation properly */}
           <Route path="podcasts/:id/seasons/:seasonId/episodes" element={<Episodes />} />
+          <Route path="favorites" element={<FavoriteEpisodes />} />
           <Route path="about" element={<About />} />
           <Route path="preview" element={<PreviewLayout />}>
             <Route index element={<Genres />} />
