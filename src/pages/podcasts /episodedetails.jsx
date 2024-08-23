@@ -69,22 +69,20 @@ const Episodes = () => {
     return (
         <div className="episode-container">
             <h1>{seasonTitle}</h1>
-            {seasonImage && <img src={seasonImage} alt={seasonTitle} className="season-image" />}
+            <img src={seasonImage} className="episode-image" alt={seasonTitle} />
             <ul className="episode-title">
                 {episodes.map((episode) => (
-                <li key={episode.episode} className={listenedEpisodes.includes(episode.episode) ? "listened" : ""}>
-                     <h2>{episode.title}</h2>
-                 {episode.description ? (
-                    <p>{episode.description}</p>
-         ) : (
-            <p style={{ color: 'red' }}>No description available</p>
-        )}
-        <button onClick={() => handlePlayEpisode(episode)}>Play Episode</button>
-        <button onClick={() => handleFavoriteToggle(episode)}>
-            {favoriteStatuses[episode.episode] ? "Remove" : "AddFavorite"}
-        </button>
-    </li>
-))}
+                    <li key={episode.episode} className={listenedEpisodes.includes(episode.episode) ? "listened" : ""}>
+                        <h2>{episode.title}</h2>
+                        <p>{episode.description}</p>
+                        <p>Duration: {episode.duration}</p>
+                        <p>Published: {episode.date}</p>
+                        <button onClick={() => handlePlayEpisode(episode)}>Play Episode</button>
+                        <button onClick={() => handleFavoriteToggle(episode)}>
+                            {favoriteStatuses[episode.episode] ? "Unfavorite" : "Favorite"}
+                        </button>
+                    </li>
+                ))}
             </ul>
         </div>
     );

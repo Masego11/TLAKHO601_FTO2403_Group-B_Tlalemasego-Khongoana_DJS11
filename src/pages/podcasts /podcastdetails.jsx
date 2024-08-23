@@ -59,7 +59,6 @@ const PodcastDetails = () => {
                 <p>Last updated: {new Date(podcast.updated).toLocaleDateString()}</p>
                 <p>{podcast.seasons?.length || 0} Seasons</p>
                 <h2>Genres</h2>
-                <h2>Genres</h2>
 <ul>
     {podcast.genres && podcast.genres.length > 0 ? (
         podcast.genres.map((genreId) => (

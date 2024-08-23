@@ -464,6 +464,98 @@ i[class*="van-type-"] {
   text-decoration: underline;
 }
 
+.episode-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.season-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.episode-title {
+  list-style-type: none;
+  padding: 0;
+}
+
+.episode-title li {
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.episode-title li.listened {
+  background-color: #e0f7fa; /* Light cyan to indicate listened episodes */
+}
+
+.episode-title li h2 {
+  font-size: 18px;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.episode-title li p {
+  font-size: 16px;
+  margin: 0 0 10px 0;
+  color: #666;
+}
+
+.episode-title li button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.episode-title li button:first-child {
+  background-color: #2196f3; /* Blue for the play button */
+  color: #fff;
+}
+
+.episode-title li button:first-child:hover {
+  background-color: #1976d2;
+}
+
+.episode-title li button:last-child {
+  background-color: #ff5722; /* Orange for the favorite toggle */
+  color: #fff;
+}
+
+.episode-title li button:last-child:hover {
+  background-color: #9d867f;
+}
+
+/* Favorite status */
+.episode-title li button.favorite {
+  background-color: #4caf50; /* Green for a favorite episode */
+}
+
+.episode-title li button.favorite:hover {
+  background-color: #388e3c;
+}
+
+.episode-image {
+  width: 100%;        /* Adjusts the width to fill the container */
+  height: 200px;      /* Fixed height */
+  object-fit: cover;  /* Ensures the image covers the dimensions without distortion */
+  border-radius: 8px; 
+  margin-bottom: 10px; 
+}
+
 /* Audio player styling */
 audio {
   flex-shrink: 0;
