@@ -6,6 +6,7 @@ const Episodes = () => {
     const { id, seasonId } = useParams();
     const { fetchShow, addFavorite, removeFavorite, isFavorite } = usePodcastsStore();
     const [episodes, setEpisodes] = useState([]);
+    const [favoriteStatuses, setFavoriteStatuses] = useState({});
     const [seasonTitle, setSeasonTitle] = useState("");
     const [seasonImage, setSeasonImage] = useState("");
     const [loading, setLoading] = useState(true);
@@ -21,6 +22,13 @@ const Episodes = () => {
                     setEpisodes(season.episodes);
                     setSeasonTitle(season.title);
                     setSeasonImage(season.image);
+
+                    // Set initial favorite statuses for each episode
+                    const statuses = {};
+                    season.episodes.forEach((episode) => {
+                        statuses[episode.episode] = isFavorite(episode.episode);
+                    });
+                    setFavoriteStatuses(statuses);
                 } else {
                     setError("Season not found");
                 }
@@ -32,10 +40,31 @@ const Episodes = () => {
             }
         };
         fetchEpisodes();
-    }, [id, seasonId, fetchShow]);
+    }, [id, seasonId, fetchShow, isFavorite]);
+
+    const toggleFavorite = (episode) => {
+        const isFav = favoriteStatuses[episode.episode];
+
+        if (isFav) {
+            removeFavorite(episode.episode);
+        } else {
+            addFavorite({
+                id: episode.episode,
+                title: episode.title,
+                showId: id,
+                seasonId: seasonId,
+                seasonTitle: seasonTitle,
+            });
+        }
+
+        setFavoriteStatuses((prevStatuses) => ({
+            ...prevStatuses,
+            [episode.episode]: !isFav,
+        }));
+    };
 
     if (loading) {
-        return <h2>Loading Episode details...</h2>; // Show loading message
+        return <h2>Loading Episode details...</h2>;
     }
     
     if (error) {
@@ -45,33 +74,20 @@ const Episodes = () => {
     return (
         <div className="episodes-container">
             <Link to={`/podcasts/${id}`} className="back-button">Back to Show</Link>
-            <Link to="/favorites" className="favorites-link">Go to Favorites</Link>
             <h1>Episodes for {seasonTitle}</h1>
             {seasonImage && <img src={seasonImage} alt={seasonTitle} className="season-image" />} 
             {episodes.length > 0 ? (
                 <ul className="episode-list">
                     {episodes.map((episode) => (
-                        <li key={episode.id} className="episode-item">
+                        <li key={episode.episode} className="episode-item">
                             <h3>{episode.title}</h3>
                             <p>{episode.description}</p>
                             <audio controls>
                                 <source src={episode.file} type="audio/mpeg" />
                                 Your browser does not support the audio element.
                             </audio>
-                            <button onClick={() => {
-                                if (isFavorite(episode.id)) {
-                                    removeFavorite(episode.id);
-                                } else {
-                                    addFavorite({
-                                        id: episode.id,
-                                        title: episode.title,
-                                        showId: id,
-                                        seasonId: seasonId,
-                                        seasonTitle: seasonTitle,
-                                    });
-                                }
-                            }}>
-                                {isFavorite(episode.id) ? 'Remove from Favorites' : 'Add to Favorites'}
+                            <button onClick={() => toggleFavorite(episode)}>
+                                {favoriteStatuses[episode.episode] ? 'Remove from Favorites' : 'Add to Favorites'}
                             </button>
                         </li>
                     ))}
@@ -82,6 +98,5 @@ const Episodes = () => {
         </div>
     );
 };
-
 
 export default Episodes;
