@@ -13,7 +13,7 @@ function PreviewLayout() {
 // Navigation menu
     return (
         <>
-        <nav className="host-nav">
+        <nav className="preview-nav">
             <NavLink to="."
                 end
                 style={({ isActive}) => isActive ? activeStyles : null}
@@ -27,11 +27,11 @@ function PreviewLayout() {
                 Favorites 
             </NavLink>
 
-            <NavLink to="episodes"
+            <NavLink to="reset"
                 end
                 style={({ isActive}) => isActive ? activeStyles : null}
             >
-                Episodes
+                History 
             </NavLink>
 
         </nav>

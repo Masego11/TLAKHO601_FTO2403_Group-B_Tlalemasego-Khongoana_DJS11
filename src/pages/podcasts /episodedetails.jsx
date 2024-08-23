@@ -4,7 +4,7 @@ import usePodcastsStore from "../../zustand/store";
 
 const Episodes = () => {
     const { id, seasonId } = useParams();
-    const { fetchShow, addFavorite, removeFavorite, isFavorite, setCurrentEpisode } = usePodcastsStore();
+    const { fetchShow, addFavorite, removeFavorite, isFavorite, setCurrentEpisode, listenedEpisodes } = usePodcastsStore();
     const [episodes, setEpisodes] = useState([]);
     const [favoriteStatuses, setFavoriteStatuses] = useState({});
     const [seasonTitle, setSeasonTitle] = useState("");
@@ -41,9 +41,9 @@ const Episodes = () => {
         fetchEpisodes();
     }, [id, seasonId, fetchShow, isFavorite]);
 
-    const toggleFavorite = (episode) => {
-        const isFav = favoriteStatuses[episode.episode];
-        if (isFav) {
+    const handleFavoriteToggle = (episode) => {
+        const currentStatus = favoriteStatuses[episode.episode];
+        if (currentStatus) {
             removeFavorite(episode.episode);
         } else {
             addFavorite({
@@ -51,50 +51,41 @@ const Episodes = () => {
                 title: episode.title,
                 showId: id,
                 seasonId: seasonId,
-                seasonTitle: seasonTitle,
             });
         }
-        setFavoriteStatuses((prevStatuses) => ({
-            ...prevStatuses,
-            [episode.episode]: !isFav,
+        setFavoriteStatuses((prev) => ({
+            ...prev,
+            [episode.episode]: !currentStatus,
         }));
     };
 
     const handlePlayEpisode = (episode) => {
-        setCurrentEpisode(episode); // Set the current episode in the global store
+        setCurrentEpisode(episode);
     };
 
-    if (loading) {
-        return <h2>Loading Episode details...</h2>;
-    }
-    
-    if (error) {
-        return <h2>Episodes not found.</h2>;
-    }
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
 
     return (
-        <div className="episodes-container">
-            <Link to={`/podcasts/${id}`} className="back-button">Back to Show</Link>
-            <h1>Episodes for {seasonTitle}</h1>
-            {seasonImage && <img src={seasonImage} alt={seasonTitle} className="season-image" />} 
-            {episodes.length > 0 ? (
-                <ul className="episode-list">
-                    {episodes.map((episode) => (
-                        <li key={episode.episode} className="episode-item">
-                            <h3>{episode.title}</h3>
-                            <p>{episode.description}</p>
-                            <button onClick={() => handlePlayEpisode(episode)}>
-                                Play Episode
-                            </button>
-                            <button onClick={() => toggleFavorite(episode)}>
-                                {favoriteStatuses[episode.episode] ? 'Remove from Favorites' : 'Add to Favorites'}
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>No episodes available for this season.</p>
-            )}
+        <div className="episode-container">
+            <h1>{seasonTitle}</h1>
+            {seasonImage && <img src={seasonImage} alt={seasonTitle} className="season-image" />}
+            <ul className="episode-title">
+                {episodes.map((episode) => (
+                <li key={episode.episode} className={listenedEpisodes.includes(episode.episode) ? "listened" : ""}>
+                     <h2>{episode.title}</h2>
+                 {episode.description ? (
+                    <p>{episode.description}</p>
+         ) : (
+            <p style={{ color: 'red' }}>No description available</p>
+        )}
+        <button onClick={() => handlePlayEpisode(episode)}>Play Episode</button>
+        <button onClick={() => handleFavoriteToggle(episode)}>
+            {favoriteStatuses[episode.episode] ? "Remove" : "AddFavorite"}
+        </button>
+    </li>
+))}
+            </ul>
         </div>
     );
 };

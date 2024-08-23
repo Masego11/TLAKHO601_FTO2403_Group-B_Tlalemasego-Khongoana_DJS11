@@ -6,6 +6,7 @@ const usePodcastsStore = create((set, get) => ({
     favorites: JSON.parse(localStorage.getItem("favorites")) || [],
     shows: [],
     currentEpisode: null,
+    listenedEpisodes: JSON.parse(localStorage.getItem("listenedEpisodes")) || [],
     error: null,
 
     // Fetches all podcasts
@@ -21,7 +22,7 @@ const usePodcastsStore = create((set, get) => ({
             set({ podcasts, error: null });
         } catch (error) {
             set({ podcasts: null, error });
-            console.error("error fetching podcasts", error);
+            console.error("Error fetching podcasts", error);
         }
     },
 
@@ -74,7 +75,13 @@ const usePodcastsStore = create((set, get) => ({
     },
 
     // Method to set the current episode
-    setCurrentEpisode: (show) => set({ currentEpisode: show }),
+    setCurrentEpisode: (episode) => {
+        set((state) => {
+            const updatedListened = [...state.listenedEpisodes, episode.id];
+            localStorage.setItem("listenedEpisodes", JSON.stringify(updatedListened));
+            return { currentEpisode: episode, listenedEpisodes: updatedListened };
+        });
+    },
 
     // Add favorite function
     addFavorite: (show) => {
@@ -95,11 +102,17 @@ const usePodcastsStore = create((set, get) => ({
         set({ favorites: updatedFavorites });
     },
 
-    // Checks if shows is in favorites
+    // Checks if show is in favorites
     isFavorite: (id) => {
         const { favorites } = get();
         return favorites.some(fav => fav.id === id);
-    }
+    },
+
+    // Clear all listening history
+    resetListeningHistory: () => {
+        localStorage.removeItem("listenedEpisodes");
+        set({ listenedEpisodes: [] });
+    },
 }));
 
 export default usePodcastsStore;

@@ -11,28 +11,18 @@ function Header() {
 // Header structure with logo, navigation menu and logo link
   return(   
     <header>
-      <Link className="site-logo" to="/">MasegoPodcasts</Link>
+      <Link className="site-logo" to="/">The Dynamic Podcast</Link>
       <nav>
         <NavLink to="/preview"
         style={({isActive}) => isActive ? activeStyles : null}
         >
           Preview
         </NavLink>
-
-        <NavLink to="/about"
-        style={({isActive}) => isActive ? activeStyles : null}
-        >
-          About
-        </NavLink>
-
         <NavLink to="/podcasts"
         style={({isActive}) => isActive ? activeStyles : null}
         >
           Podcasts 
         </NavLink>
-        <Link to="Login" className="login-link">
-            <img src="/src/assets/images/avatar-icon.png" className="login-icon"/>
-        </Link>
         </nav>
 </header>
   )

@@ -25,7 +25,7 @@ const FavoriteEpisodes = () => {
     return (
         <div>
             <h2>Favorite Episodes</h2>
-            <div>
+            <div className='sort-buttons'>
                 <button onClick={() => setSortOrder('titleAsc')}>Sort by Title A-Z</button>
                 <button onClick={() => setSortOrder('titleDesc')}>Sort by Title Z-A</button>
                 <button onClick={() => setSortOrder('dateAsc')}>Sort by Earliest Added</button>

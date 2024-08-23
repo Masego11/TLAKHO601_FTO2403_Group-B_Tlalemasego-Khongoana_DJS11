@@ -4,15 +4,14 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import AudioPlayer from "./AudioPlayer";
-import usePodcastsStore from "../zustand/store";
 
 function Layout() {
-    const { currentEpisode } = usePodcastsStore();
+    
 
     return (
         <div className="site-wrapper">
             <Header />
-            {currentEpisode && <AudioPlayer />}
+            {<AudioPlayer />}
             <main>
                 <Outlet />
             </main>
