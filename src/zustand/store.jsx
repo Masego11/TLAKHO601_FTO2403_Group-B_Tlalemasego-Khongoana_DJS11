@@ -93,8 +93,13 @@ const usePodcastsStore = create((set, get) => ({
     //Add favorite function to add show to favorites array. and updates local storage 
     addFavorite: (show) => {
         const { favorites } = get();
-        if (!favorites.find(fav => fav.id === show.id)) {
-            const updatedFavorites = [...favorites, show];
+        const existingFavorite = favorites.find(fav => fav.id === show.id && fav.showId === show.showId && fav.seasonId === show.seasonId);
+
+        if (!existingFavorite) {
+            const updatedFavorites = [
+                ...favorites, 
+                { ...show, addedAt: new Date().toISOString() }
+            ];
             localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
             set({ favorites: updatedFavorites });
         }
@@ -106,7 +111,7 @@ const usePodcastsStore = create((set, get) => ({
         localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
         set({ favorites: updatedFavorites });
     },
-    // Checks if podcast is in favorites 
+    // Checks if shows is in favorites 
     isFavorite: (id) => {
         const { favorites } = get();
         return favorites.some(fav => fav.id === id);
