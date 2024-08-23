@@ -4,9 +4,8 @@ import usePodcastsStore from "../../zustand/store";
 
 const PodcastDetails = () => {
     const { id } = useParams();
-    const { fetchShow, addFavorite, removeFavorite, isFavorite } = usePodcastsStore();
+    const { fetchShow } = usePodcastsStore();
     const [podcast, setPodcast] = useState(null);
-    const [favoriteStatus, setFavoriteStatus] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
@@ -15,9 +14,6 @@ const PodcastDetails = () => {
             try {
                 const result = await fetchShow(id);
                 setPodcast(result);
-                if (result) {
-                    setFavoriteStatus(isFavorite(id));
-                }
             } catch (error) {
                 console.log("Error fetching podcast details:", error);
             } finally {
@@ -25,22 +21,14 @@ const PodcastDetails = () => {
           }
         };
         fetchData();
-    }, [id, fetchShow, isFavorite]);
-
-    const toggleFavorite = () => {
-        if (favoriteStatus) {
-            removeFavorite(id); // Remove from favorites
-        } else {
-            addFavorite(podcast); // Add to favorites
-        }
-        setFavoriteStatus(!favoriteStatus); // Update local state
-    };
+    }, [id, fetchShow]);
 
     const handleSeasonChange = (e) => {
       const selectedSeasonId = e.target.value;
       // Navigate to the correct season's episodes
       navigate(`/podcasts/${id}/seasons/${selectedSeasonId}/episodes`);
   };
+  
   // Show loading message while fetching
 if (loading) {
     return <h2>Loading podcast details...</h2>; // Show loading message
@@ -59,11 +47,6 @@ if (!podcast) {
                 <img src={podcast.image} alt={podcast.title} />
                 <p>Last updated: {new Date(podcast.updated).toLocaleDateString()}</p>
                 <p>{podcast.seasons?.length || 0} Seasons</p>
-
-                <button onClick={toggleFavorite}>
-                    {favoriteStatus ? 'Remove from Favorites' : 'Add to Favorites'}
-                </button>
-
                 <h2>Seasons</h2>
                 <select onChange={handleSeasonChange} defaultValue="">
                     <option value="" disabled>Select a season</option>
