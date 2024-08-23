@@ -4,7 +4,7 @@ import usePodcastsStore from "../../zustand/store";
 
 const Episodes = () => {
     const { id, seasonId } = useParams();
-    const { fetchShow, addFavorite, removeFavorite, isFavorite } = usePodcastsStore();
+    const { fetchShow, addFavorite, removeFavorite, isFavorite, setCurrentEpisode } = usePodcastsStore();
     const [episodes, setEpisodes] = useState([]);
     const [favoriteStatuses, setFavoriteStatuses] = useState({});
     const [seasonTitle, setSeasonTitle] = useState("");
@@ -23,7 +23,6 @@ const Episodes = () => {
                     setSeasonTitle(season.title);
                     setSeasonImage(season.image);
 
-                    // Set initial favorite statuses for each episode
                     const statuses = {};
                     season.episodes.forEach((episode) => {
                         statuses[episode.episode] = isFavorite(episode.episode);
@@ -44,7 +43,6 @@ const Episodes = () => {
 
     const toggleFavorite = (episode) => {
         const isFav = favoriteStatuses[episode.episode];
-
         if (isFav) {
             removeFavorite(episode.episode);
         } else {
@@ -56,11 +54,14 @@ const Episodes = () => {
                 seasonTitle: seasonTitle,
             });
         }
-
         setFavoriteStatuses((prevStatuses) => ({
             ...prevStatuses,
             [episode.episode]: !isFav,
         }));
+    };
+
+    const handlePlayEpisode = (episode) => {
+        setCurrentEpisode(episode); // Set the current episode in the global store
     };
 
     if (loading) {
@@ -82,10 +83,9 @@ const Episodes = () => {
                         <li key={episode.episode} className="episode-item">
                             <h3>{episode.title}</h3>
                             <p>{episode.description}</p>
-                            <audio controls>
-                                <source src={episode.file} type="audio/mpeg" />
-                                Your browser does not support the audio element.
-                            </audio>
+                            <button onClick={() => handlePlayEpisode(episode)}>
+                                Play Episode
+                            </button>
                             <button onClick={() => toggleFavorite(episode)}>
                                 {favoriteStatuses[episode.episode] ? 'Remove from Favorites' : 'Add to Favorites'}
                             </button>
