@@ -15,3 +15,6 @@
 - tlalemasego@gmail.com
 - https://github.com/Masego11
 
+# App link
+- https://main--thedynamicpodcast.netlify.app/
+
