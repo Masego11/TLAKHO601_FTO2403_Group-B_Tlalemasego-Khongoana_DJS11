@@ -1,5 +1,6 @@
 import {useRef} from "react";
-import usePodcastsStore from "../zustand/store"; // Adjust the path as needed
+import usePodcastsStore from "../zustand/store"; 
+
 
 const AudioPlayer = () => {
     const { currentEpisode } = usePodcastsStore(state => ({ currentEpisode: state.currentEpisode }));
@@ -8,7 +9,7 @@ const AudioPlayer = () => {
     if (!currentEpisode) {
         return null; // Render nothing if there's no current episode
     }
-
+//Rendering of the componennt
     return (
         <div className="audio-player">
             <h3>Now Playing: {currentEpisode.title}</h3>

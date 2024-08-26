@@ -64,10 +64,10 @@ const PodcastDetails = () => {
         podcast.genres.map((genreId) => (
             <li key={genreId}>{genres[genreId]?.title || "Unknown Genre"}</li>
         ))
-    ) : (
+                 ) : (
         <li>Unknown Genre</li>
-    )}
-</ul>
+             )}     
+                </ul>
                 <h2>Seasons</h2>
                 <select onChange={handleSeasonChange} defaultValue="">
                     <option value="" disabled>Select a season</option>

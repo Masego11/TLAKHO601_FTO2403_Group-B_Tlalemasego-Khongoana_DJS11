@@ -1,8 +1,17 @@
-# React + Vite
+# Project Introduction 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Welcome to the dynamic podcast app. The podcast allows users access to a range of podcast shows across different genres. The app is dynamic  in a sense that a number of key user stories are met. From the ability to sort episodes in alphatic order to saving and removing episodes as favorites. 
 
-Currently, two official plugins are available:
+# Project setup instructions 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Download the folder as a zip file from the project github repository 
+- Open the file in visual studio code
+- Make sure you have node installed
+- Run the command "npm i" or "npm install" to install the required package and its dependencies 
+- Run the command "npm run dev" to start the development server. 
+
+# Contact details
+
+- tlalemasego@gmail.com
+- https://github.com/Masego11
+
