@@ -1,10 +1,11 @@
-//The layout component provides a wrapper for the  application's pages. 
+//Main layout component for the app. 
 // Imports
 import { Outlet } from "react-router-dom";
 import Header from "./header";
 import Footer from "./footer";
 import AudioPlayer from "./AudioPlayer";
 
+//header tag renders 
 function Layout() {
     
 

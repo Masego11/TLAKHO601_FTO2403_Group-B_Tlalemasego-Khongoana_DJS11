@@ -7,7 +7,7 @@ const AudioPlayer = () => {
     const audioRef = useRef(null);
 
     if (!currentEpisode) {
-        return null; // Render nothing if there's no current episode
+        return null;  // Render nothing if there's no current episode
     }
 //Rendering of the componennt
     return (

@@ -4,12 +4,15 @@ import usePodcastsStore from '../../zustand/store';
 
 const GenreDetails = () => {
   const { id } = useParams();
-  const { genres, fetchGenresById, error } = usePodcastsStore((state) => ({
+  const { genres, fetchGenresById, fetchShow, error } = usePodcastsStore((state) => ({
     genres: state.genres,
     fetchGenresById: state.fetchGenresById,
+    fetchShow: state.fetchShow,
     error: state.error,
   }));
+
   const [loading, setLoading] = useState(false);
+  const [showDetails, setShowDetails] = useState({}); // To store fetched show details
 
   useEffect(() => {
     setLoading(true);
@@ -19,6 +22,23 @@ const GenreDetails = () => {
       setLoading(false);
     }
   }, [id, genres, fetchGenresById]);
+
+  useEffect(() => {
+    const fetchAllShows = async () => {
+      if (genres[id] && genres[id].shows) {
+        const shows = genres[id].shows;
+        const fetchedShowDetails = {};
+        for (let showId of shows) {
+          const show = await fetchShow(showId); // Fetch each show by its ID
+          fetchedShowDetails[showId] = show;
+        }
+        setShowDetails(fetchedShowDetails);
+      }
+    };
+    if (genres[id]) {
+      fetchAllShows();
+    }
+  }, [id, genres, fetchShow]);
 
   const genre = genres[id];
 
@@ -51,7 +71,9 @@ const GenreDetails = () => {
           <ul>
             {genre.shows.map((showId) => (
               <li key={showId}>
-                <Link to={`/podcast/${showId}`}>Show ID: {showId}</Link>
+                <Link to={`/podcasts/${showId}`}>
+                  {showDetails[showId] ? showDetails[showId].title : `Loading show ${showId}...`}
+                </Link>
               </li>
             ))}
           </ul>

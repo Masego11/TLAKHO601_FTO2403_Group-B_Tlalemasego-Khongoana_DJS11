@@ -75,8 +75,6 @@ const Episodes = () => {
                     <li key={episode.episode} className={listenedEpisodes.includes(episode.episode) ? "listened" : ""}>
                         <h2>{episode.title}</h2>
                         <p>{episode.description}</p>
-                        <p>Duration: {episode.duration}</p>
-                        <p>Published: {episode.date}</p>
                         <button onClick={() => handlePlayEpisode(episode)}>Play Episode</button>
                         <button onClick={() => handleFavoriteToggle(episode)}>
                             {favoriteStatuses[episode.episode] ? "Unfavorite" : "Favorite"}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import usePodcastsStore from '../../zustand/store'; 
 
+
 const Genres = () => {
   const { genres, fetchGenresById, error } = usePodcastsStore((state) => ({
     genres: state.genres,
@@ -11,6 +12,7 @@ const Genres = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  
   useEffect(() => {
     const genreIds = [1, 2, 3, 4, 5, 6, 7, 8, 9]; 
     setLoading(true);
